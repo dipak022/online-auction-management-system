@@ -45,9 +45,13 @@ Banner Manage
                   <thead>
                   <tr>
                     <th>S.N.</th>
+                    <th>Banner</th>
+                    <th>Banner Two</th>
+                    <th>Banner Three</th>
+                    <th>Banner Four</th>
                     <th>Banner Title</th>
                     <th>Banner short title</th>
-                    <th>Image</th>
+                   
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -56,9 +60,13 @@ Banner Manage
                   @foreach($banners as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td><img src="{{asset($item->image)}}" style="height: 50px;width: 50px;"/></td>
+                        <td><img src="{{asset($item->image_two)}}" style="height: 50px;width: 50px;"/></td>
+                        <td><img src="{{asset($item->image_three)}}" style="height: 50px;width: 50px;"/></td>
+                        <td><img src="{{asset($item->image_four)}}" style="height: 50px;width: 50px;"/></td>
                         <td>{{$item->title}}</td>
                         <td>{{$item->description}}</td>
-                        <td><img src="{{asset($item->image)}}" style="height: 100px;width: 100px;"/></td>
+                       
                         <td>
                             <input type="checkbox" name="toogle" value="{{$item->id}}" data-toggle="switchbutton" {{$item->active == 1 ? 'checked' : ''}}  data-onlabel="Active" data-offlabel="Inactive" data-onstyle="success" data-size="sm" data-offstyle="danger">
                         </td>
@@ -111,14 +119,62 @@ Banner Manage
                                           <label>Banner description  :</label>
                                           <input class="form-control" placeholder="Banner description" name="description" value="{{$item->description}}"></input>
                                       </div>
-                                      <div class="form-group">
-                                          <label>Old Image  :</label>
-                                          <img src="{{ asset($item->image) }}" alt="images" width="100" height="100">
-                                            <input type="hidden" name="oldimage" value="{{$item->image}}" >
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group text-center">
+                                            <img src="{{ asset($item->image) }}" alt="images" width="80" height="80">
+                                              <input type="hidden" name="oldimage" value="{{$item->image}}" >
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>New Banner  :</label>
+                                            <input type="file" class="form-control" id="validationCustom10" name="image" >
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div class="form-group">
-                                          <label>New Image  :</label>
-                                          <input type="file" class="form-control" id="validationCustom10" name="image" >
+
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group text-center">
+                                            <img src="{{ asset($item->image_two) }}" alt="images" width="80" height="80">
+                                              <input type="hidden" name="oldimagetwo" value="{{$item->image_two}}" >
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>New Banner Two :</label>
+                                            <input type="file" class="form-control" id="validationCustom10" name="image_two" >
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group text-center">
+                                            <img src="{{ asset($item->image_three) }}" alt="images" width="80" height="80">
+                                              <input type="hidden" name="oldimagethree" value="{{$item->image_three}}" >
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>New Banner Three :</label>
+                                            <input type="file" class="form-control" id="validationCustom10" name="image_three" >
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group text-center">
+                                            <img src="{{ asset($item->image_four) }}" alt="images" width="80" height="80">
+                                              <input type="hidden" name="oldimagefour" value="{{$item->image_four}}" >
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>New Banner Four :</label>
+                                            <input type="file" class="form-control" id="validationCustom10" name="image_four" >
+                                          </div>
+                                        </div>
                                       </div>
                                       
                                         <div class="form-group">
@@ -252,6 +308,19 @@ Banner Manage
                         <label>Banner Image  :</label>
                         <input type="file" class="form-control"  name="image" value="{{old('image')}}"></input>
                     </div>
+                    <div class="form-group">
+                        <label>Banner Image Two :</label>
+                        <input type="file" class="form-control"  name="image_two" value="{{old('image_two')}}"></input>
+                    </div>
+                    <div class="form-group">
+                        <label>Banner Image Three :</label>
+                        <input type="file" class="form-control"  name="image_three" value="{{old('image_three')}}"></input>
+                    </div>
+                    <div class="form-group">
+                        <label>Banner Image Four :</label>
+                        <input type="file" class="form-control"  name="image_four" value="{{old('image_four')}}"></input>
+                    </div>
+                    
                    
                     <div class="form-group">
                       <label>Banner status :</label>

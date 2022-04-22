@@ -62,7 +62,7 @@ Product Manage
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td><img src="{{asset($item->image)}}" style="height: 100px;width: 100px;"/></td>
-                        <td>{{$item->name}}</td>
+                        <td>{{$item->product_name}}</td>
                         <td>{{$item->category_name}}</td>
                         <td>{{$item->regular_price}}</td>
                         <td>{{$item->starting_bidding_amount}}</td>
@@ -130,7 +130,7 @@ Product Manage
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                   <label>Product Name  :</label>
-                                                  <input type="text" class="form-control" placeholder="Enter product name" name="name" value="{{$product->name}}" />
+                                                  <input type="text" class="form-control" placeholder="Enter product name" name="product_name" value="{{$product->product_name}}" />
                                               </div>
                                             </div>
                                             <div class="col-md-6">
@@ -275,7 +275,7 @@ Product Manage
                                         </div>
                                         <div class="col-md-6">
                                             <strong>Name :</strong>
-                                            <p>{{$productdata->name}}</p>
+                                            <p>{{$productdata->product_name}}</p>
                                         </div>
                                     </div>
 
@@ -373,7 +373,7 @@ Product Manage
                     <div class="col-md-6">
                       <div class="form-group">
                           <label>Product Name  :</label>
-                          <input type="text" class="form-control" placeholder="Enter product name" name="name" value="{{old('name')}}" />
+                          <input type="text" class="form-control" placeholder="Enter product name" name="product_name" value="{{old('product_name')}}" />
                       </div>
                     </div>
                     <div class="col-md-6">

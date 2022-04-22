@@ -20,11 +20,6 @@ class ProductController extends Controller
             ->join('categories','products.category_id','categories.id')
             ->select('products.*','categories.category_name')
             ->get();
-            
-            
-      
-          
-
         return view('backend.superadmin.product.manage',compact('categorys','products'));
     }
 
@@ -79,7 +74,7 @@ class ProductController extends Controller
         $imageName->move($directory,$image);
 
         $product = new Product();
-        $product->name = $request->name;
+        $product->product_name = $request->product_name;
         $product->category_id = $request->category_id;
         $product->details = $request->details;
         $product->regular_price = $request->regular_price;
@@ -152,7 +147,7 @@ class ProductController extends Controller
             
 
 
-            $product->name = $request->name;
+            $product->product_name = $request->product_name;
             $product->category_id = $request->category_id;
             $product->details = $request->details;
             $product->regular_price = $request->regular_price;
@@ -167,13 +162,12 @@ class ProductController extends Controller
 
         }else{
             $product = Product::find($id);
-            $product->name = $request->name;
+            $product->product_name = $request->product_name;
             $product->category_id = $request->category_id;
             $product->details = $request->details;
             $product->regular_price = $request->regular_price;
             $product->starting_bidding_amount = $request->starting_bidding_amount;
             $product->bidding_end_date = strtotime($request->bidding_end_date) ? (new DateTime($request->bidding_end_date))->format('Y-m-d') : null;
-            $product->image = $imgUrl;
             $product->new = $request->new;
             $product->featured = $request->featured;
             $product->active = $request->active;

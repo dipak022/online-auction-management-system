@@ -20,6 +20,17 @@ Route::group(['prefix'=>'superadmin', 'middleware'=>['isSuperadmin','auth','Prev
     Route::post('/featured_status', [App\Http\Controllers\Superadmin\ProductController::class, 'FeaturedStatus'])->name('featured.status');
 
 
+    //bid
+    
+    Route::get('/allbid', [App\Http\Controllers\BidingController::class, 'allbid'])->name('allbid');
+
+    Route::post('/delevered/{id}', [App\Http\Controllers\BidingController::class, 'Delevered'])->name('bid.delevered');
+
+    Route::get('/delete_bid/{id}', [App\Http\Controllers\BidingController::class, 'DeleteBid'])->name('bid.delete');
+    
+
+
+
      // manage question route here 
      Route::resource('/setting', App\Http\Controllers\Superadmin\SetingController::class);
 

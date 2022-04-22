@@ -4,9 +4,7 @@ Home Page
 @endsection
 @section('content')
 
-@php
-$seting=App\Models\Seting::orderBy('id','DESC')->first();
-@endphp
+
     <!-- BEGIN SLIDER -->
     <div class="page-slider margin-bottom-35">
         <div id="carousel-example-generic" class="carousel slide carousel-slider">
@@ -21,64 +19,53 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <!-- First slide -->
-                <div class="item carousel-item-four active">
+                <div class="item  active" style="background-image: url({{ asset($banners->image) }}); background-size: cover; background-position: center center; width: 100%; height: 100%; min-height: 580px;">
                     <div class="container">
                         <div class="carousel-position-four text-center">
                             <h2 class="margin-bottom-20 animate-delay carousel-title-v3 border-bottom-title text-uppercase" data-animation="animated fadeInDown">
-                                Tones of <br/><span class="color-red-v2">Shop UI Features</span><br/> designed
+                               <span class="color-red-v2">{{$banners->title}}</span><br/>
                             </h2>
-                            <p class="carousel-subtitle-v2" data-animation="animated fadeInUp">Lorem ipsum dolor sit amet constectetuer diam <br/>
-                            adipiscing elit euismod ut laoreet dolore.</p>
+                            <p class="carousel-subtitle-v2" data-animation="animated fadeInUp">{{$banners->description}}.<br/></p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Second slide -->
-                <div class="item carousel-item-five">
+                <div class="item" style="background-image: url({{ asset($banners->image_two) }}); background-size: cover; background-position: center center; width: 100%; height: 100%; min-height: 580px;">
                     <div class="container">
                         <div class="carousel-position-four text-center">
                             <h2 class="animate-delay carousel-title-v4" data-animation="animated fadeInDown">
-                                Unlimted
+                            <span class="color-red-v2">{{$banners->title}}</span><br/>
                             </h2>
-                            <p class="carousel-subtitle-v2" data-animation="animated fadeInDown">
-                                Layout Options
-                            </p>
-                            <p class="carousel-subtitle-v3 margin-bottom-30" data-animation="animated fadeInUp">
-                                Fully Responsive
-                            </p>
-                            <a class="carousel-btn" href="#" data-animation="animated fadeInUp">See More Details</a>
+                           
+                            <p class="carousel-subtitle-v2" data-animation="animated fadeInUp">{{$banners->description}}.<br/></p>
                         </div>
-                        <img class="carousel-position-five animate-delay hidden-sm hidden-xs" src="assets/pages/img/shop-slider/slide2/price.png" alt="Price" data-animation="animated zoomIn">
                     </div>
                 </div>
 
                 <!-- Third slide -->
-                <div class="item carousel-item-six">
+                <div class="item" style="background-image: url({{ asset($banners->image_three) }}); background-size: cover; background-position: center center; width: 100%; height: 100%; min-height: 580px;">
                     <div class="container">
                         <div class="carousel-position-four text-center">
-                            <span class="carousel-subtitle-v3 margin-bottom-15" data-animation="animated fadeInDown">
-                                Full Admin &amp; Frontend
-                            </span>
-                            <p class="carousel-subtitle-v4" data-animation="animated fadeInDown">
-                                eCommerce UI
-                            </p>
-                            <p class="carousel-subtitle-v3" data-animation="animated fadeInDown">
-                                Is Ready For Your Project
-                            </p>
+                            <h2 class="animate-delay carousel-title-v4" data-animation="animated fadeInDown">
+                             <span class="color-red-v2">{{$banners->title}}</span><br/>
+                            </h2>
+                           
+                            <p class="carousel-subtitle-v2" data-animation="animated fadeInUp">{{$banners->description}}.<br/></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Fourth slide -->
-                <div class="item carousel-item-seven">
+                <div class="item" style="background-image: url({{ asset($banners->image_four) }}); background-size: cover; background-position: center center; width: 100%; height: 100%; min-height: 580px;">
                    <div class="center-block">
                         <div class="center-block-wrap">
                             <div class="center-block-body">
-                                <h2 class="carousel-title-v1 margin-bottom-20" data-animation="animated fadeInDown">
-                                    The most <br/>
-                                    wanted bijouterie
-                                </h2>
-                                <a class="carousel-btn" href="#" data-animation="animated fadeInUp">But It Now!</a>
+                            <h2 class="animate-delay carousel-title-v4" data-animation="animated fadeInDown">
+                            <span class="color-red-v2">{{$banners->title}}</span><br/>
+                            </h2>
+                           
+                            <p class="carousel-subtitle-v2" data-animation="animated fadeInUp">{{$banners->description}}.<br/></p>
                             </div>
                         </div>
                     </div>
@@ -98,382 +85,93 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
 
     <div class="main">
       <div class="container">
-        <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->
+        <!-- BEGIN SALE PRODUCT & All ARRIVALS -->
         <div class="row margin-bottom-40">
           <!-- BEGIN SALE PRODUCT -->
           <div class="col-md-12 sale-product">
-            <h2>New Arrivals</h2>
+            <h2>All Arrivals</h2>
             <div class="owl-carousel owl-carousel5">
+              @foreach($allproducts as $allproduct)
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/model1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="{{asset($allproduct->image)}}" class="img-responsive" alt="Berry Lace Dress">
                     <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/model1.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                      <a href="{{asset($allproduct->image)}}" class="btn btn-default fancybox-button">Zoom</a>
                     </div>
                   </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                  <div class="sticker sticker-sale"></div>
+                  <h3><a href="javascript:;">{{$allproduct->name}}</a></h3>
+                  <div class="pi-price">{{$allproduct->regular_price}} TK</div>
+                  <a href="{{route('auction.details',$allproduct->id)}}" class="btn btn-default add2cart">View Biding Item </a>
                 </div>
               </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/model2.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/model2.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/model6.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/model6.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                  <div class="product-item">
-                    <div class="pi-img-wrapper">
-                      <img src="{{asset('frontend')}}/assets/pages/img/products/model4.jpg" class="img-responsive" alt="Berry Lace Dress">
-                      <div>
-                        <a href="{{asset('frontend')}}/assets/pages/img/products/model4.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                        <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                      </div>
-                    </div>
-                    <h3><a href="javascript:;">Berry Lace Dress4</a></h3>
-                    <div class="pi-price">$29.00</div>
-                    <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                    <div class="sticker sticker-new"></div>
-                  </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/model5.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/model5.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress5</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/model3.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/model3.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="a{{asset('frontend')}}/ssets/pages/img/products/model7.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/model7.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
+             @endforeach
+              
             </div>
           </div>
           <!-- END SALE PRODUCT -->
         </div>
-        <!-- END SALE PRODUCT & NEW ARRIVALS -->
+        <!-- END SALE PRODUCT & All ARRIVALS -->
 
-        <!-- BEGIN SIDEBAR & CONTENT -->
-        <div class="row margin-bottom-40 ">
-          <!-- BEGIN SIDEBAR -->
-          <div class="sidebar col-md-3 col-sm-4">
-            <ul class="list-group margin-bottom-25 sidebar-menu">
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Ladies</a></li>
-              <li class="list-group-item clearfix dropdown">
-                <a href="shop-product-list.html">
-                  <i class="fa fa-angle-right"></i>
-                  Mens
-                  
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="list-group-item dropdown clearfix">
-                    <a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Shoes </a>
-                      <ul class="dropdown-menu">
-                        <li class="list-group-item dropdown clearfix">
-                          <a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Classic </a>
-                          <ul class="dropdown-menu">
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Classic 1</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Classic 2</a></li>
-                          </ul>
-                        </li>
-                        <li class="list-group-item dropdown clearfix">
-                          <a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Sport  </a>
-                          <ul class="dropdown-menu">
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Sport 1</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Sport 2</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                  </li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Trainers</a></li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Jeans</a></li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Chinos</a></li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> T-Shirts</a></li>
-                </ul>
-              </li>
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kids</a></li>
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Accessories</a></li>
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Sports</a></li>
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Brands</a></li>
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Electronics</a></li>
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Home & Garden</a></li>
-              <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Custom Link</a></li>
-            </ul>
-          </div>
-          <!-- END SIDEBAR -->
-          <!-- BEGIN CONTENT -->
-          <div class="col-md-9 col-sm-8">
-            <h2>Three items</h2>
-            <div class="owl-carousel owl-carousel3">
+         <!-- BEGIN SALE PRODUCT & All ARRIVALS -->
+         <div class="row margin-bottom-40">
+          <!-- BEGIN SALE PRODUCT -->
+          <div class="col-md-12 sale-product">
+            <h2>New Arrivals</h2>
+            <div class="owl-carousel owl-carousel5">
+              @foreach($newproducts as $newproduct)
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="{{asset($newproduct->image)}}" class="img-responsive" alt="Berry Lace Dress">
                     <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                      <a href="{{asset($newproduct->image)}}" class="btn btn-default fancybox-button">Zoom</a>
                     </div>
                   </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                  <div class="sticker sticker-new"></div>
+                  <h3><a href="javascript:;">{{$newproduct->name}}</a></h3>
+                  <div class="pi-price">{{$newproduct->regular_price}} TK</div>
+                  <a href="{{route('auction.details',$newproduct->id)}}" class="btn btn-default add2cart">View Biding Item </a>
                 </div>
               </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress4</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                  <div class="sticker sticker-sale"></div>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress5</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress6</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
+             @endforeach
+              
             </div>
           </div>
-          <!-- END CONTENT -->
+          <!-- END SALE PRODUCT -->
         </div>
-        <!-- END SIDEBAR & CONTENT -->
+        <!-- END SALE PRODUCT & All ARRIVALS -->
 
-        <!-- BEGIN TWO PRODUCTS & PROMO -->
-        <div class="row margin-bottom-35 ">
-          <!-- BEGIN TWO PRODUCTS -->
-          <div class="col-md-6 two-items-bottom-items">
-            <h2>Two items</h2>
-            <div class="owl-carousel owl-carousel2">
+
+         <!-- BEGIN SALE PRODUCT & All ARRIVALS -->
+         <div class="row margin-bottom-40">
+          <!-- BEGIN SALE PRODUCT -->
+          <div class="col-md-12 sale-product">
+            <h2>Featured Arrivals</h2>
+            <div class="owl-carousel owl-carousel5">
+              @foreach($featuredproducts as $featuredproduct)
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="{{asset($featuredproduct->image)}}" class="img-responsive" alt="Berry Lace Dress">
                     <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                      <a href="{{asset($featuredproduct->image)}}" class="btn btn-default fancybox-button">Zoom</a>
                     </div>
                   </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                  <h3><a href="javascript:;">{{$featuredproduct->name}}</a></h3>
+                  <div class="pi-price">{{$featuredproduct->regular_price}} TK</div>
+                  <a href="{{route('auction.details',$allproduct->id)}}" class="btn btn-default add2cart">View Biding Item </a>
                 </div>
               </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{asset('frontend')}}/assets/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
-                    <div>
-                      <a href="{{asset('frontend')}}/assets/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
-                  <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                </div>
-              </div>
+             @endforeach
+              
             </div>
           </div>
-          <!-- END TWO PRODUCTS -->
-          <!-- BEGIN PROMO -->
-          <div class="col-md-6 shop-index-carousel">
-            <div class="content-slider">
-              <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                  <li data-target="#myCarousel" data-slide-to="1"></li>
-                  <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                  <div class="item active">
-                    <img src="{{asset('frontend')}}/assets/pages/img/index-sliders/slide1.jpg" class="img-responsive" alt="Berry Lace Dress">
-                  </div>
-                  <div class="item">
-                    <img src="{{asset('frontend')}}/assets/pages/img/index-sliders/slide2.jpg" class="img-responsive" alt="Berry Lace Dress">
-                  </div>
-                  <div class="item">
-                    <img src="{{asset('frontend')}}/assets/pages/img/index-sliders/slide3.jpg" class="img-responsive" alt="Berry Lace Dress">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- END PROMO -->
-        </div>        
-        <!-- END TWO PRODUCTS & PROMO -->
+          <!-- END SALE PRODUCT -->
+        </div>
+        <!-- END SALE PRODUCT & All ARRIVALS -->
+
+       
+
       </div>
     </div>
 

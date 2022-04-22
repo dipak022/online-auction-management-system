@@ -1,6 +1,6 @@
-@extends('frontend.layouts.master')
+@extends('backend.superadmin.layouts.master')
 @section('title')
-Profile Page
+Bid Manage
 @endsection
 @section('content')
  <!-- Content Wrapper. Contains page content -->
@@ -14,7 +14,7 @@ Profile Page
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{route('superadmin.dashboard')}}">Home</a></li>
               <li class="breadcrumb-item active">Bid</li>
             </ol>
           </div>
@@ -52,7 +52,7 @@ Profile Page
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($allbiding as $item)
+                  @foreach($allbids as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td><img src="{{asset($item->image)}}" style="height: 100px;width: 100px;"/></td>
@@ -259,3 +259,46 @@ Profile Page
 
 @endsection
 
+@section('scripts')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $('.dltBtn').click(function(e){
+       
+        var form = $(this).closest('form');
+        var dataId = $(this).data('id');
+        e.preventDefault();
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+            Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+            )
+        }
+        })
+        
+        
+
+    });
+
+</script>
+
+
+
+
+@endsection

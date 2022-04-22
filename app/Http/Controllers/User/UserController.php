@@ -4,20 +4,21 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-
 use App\Models\Problem;
-use Illuminate\Support\Str;
 use DB;
 use Auth;
-
 use Gate;
 use App\User;
 use App\Course;
 use Illuminate\Support\Facades\Input;
 use Response;
-
 use Session;
+use Carbon\Carbon;
+use App\Models\Category;
+use App\Models\Seting;
+use App\Models\Product;
+use Illuminate\Support\Str;
+use DateTime;
 class UserController extends Controller
 {
     public function __construct()
@@ -25,7 +26,13 @@ class UserController extends Controller
            $this->middleware('auth');
        }
        function index(){
-       return view('frontend.index');
+        $date = Carbon::now();
+        $seting=Seting::orderBy('id','DESC')->first();
+        $banners=DB::table('banners')->where('active',1)->orderBy('id','DESC')->first();
+        $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get();   
+        $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
+        $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
+        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts'));
        }
 
        public function profile(){

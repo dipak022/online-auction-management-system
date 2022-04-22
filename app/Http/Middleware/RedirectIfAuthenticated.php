@@ -21,19 +21,25 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if( Auth::guard($guard)->check() && Auth::user()->role == 1){
-                return redirect()->route('superadmin.dashboard');
-            }
-            elseif( Auth::guard($guard)->check() && Auth::user()->role == 2){
-                return redirect()->route('admin.dashboard');
-            }
-            elseif( Auth::guard($guard)->check() && Auth::user()->role == 3){
-                return redirect()->route('user.dashboard');
-            }
-            elseif( Auth::guard($guard)->check() && Auth::user()->role == 4){
-                return redirect()->route('technician.dashboard');
-            }
+        // foreach ($guards as $guard) {
+        //     if( Auth::guard($guard)->check() && Auth::user()->role == 1){
+        //         return redirect()->route('superadmin.dashboard');
+        //     }
+        //     elseif( Auth::guard($guard)->check() && Auth::user()->role == 2){
+        //         return redirect()->route('admin.dashboard');
+        //     }
+        //     elseif( Auth::guard($guard)->check() && Auth::user()->role == 3){
+        //         return redirect()->route('user.dashboard');
+        //     }
+        //     elseif( Auth::guard($guard)->check() && Auth::user()->role == 4){
+        //         return redirect()->route('technician.dashboard');
+        //     }
+        // }
+        if (Auth::guard('web')->check() && Auth::user()->role == 1) {
+            return redirect()->route('superadmin.dashboard');
+        }
+        elseif(Auth::guard('web')->check() && Auth::user()->role == 3){
+            return redirect()->route('user.dashboard');
         }
 
         return $next($request);

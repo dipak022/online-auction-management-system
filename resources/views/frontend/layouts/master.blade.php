@@ -131,46 +131,45 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
     <!-- BEGIN HEADER -->
     <div class="header">
       <div class="container">
-        <a class="site-logo" href="shop-index.html"><img src="{{asset($seting->image)}}" alt="Biding" style="height: 80px;width: 150px;"></a>
-
+        <a class="site-logo" href="{{ url('/') }}"><img src="{{asset($seting->image)}}" alt="Biding" style="height: 80px;width: 150px;"></a>
         <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
-
-
         <!-- BEGIN NAVIGATION -->
         <div class="header-navigation">
           <ul>
+            <li><a href="{{url('/')}}">Home</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                Woman 
-                
+                All Category 
               </a>
-                
               <!-- BEGIN DROPDOWN MENU -->
               <ul class="dropdown-menu">
-                <li class="dropdown-submenu">
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="shop-product-list.html">Second Level Link</a></li>
-                    <li><a href="shop-product-list.html">Second Level Link</a></li>
-                    <li class="dropdown-submenu">
-                      <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                        Second Level Link 
-                        <i class="fa fa-angle-right"></i>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a href="shop-product-list.html">Third Level Link</a></li>
-                        <li><a href="shop-product-list.html">Third Level Link</a></li>
-                        <li><a href="shop-product-list.html">Third Level Link</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="shop-product-list.html">Running Shoes</a></li>
-                <li><a href="shop-product-list.html">Jackets and Coats</a></li>
+                @foreach($categorys as $cat)   
+                   <li><a href="shop-product-list.html"><span style="color: black;">{{ $cat->categoty_name}}</span></a></li>
+                @endforeach
               </ul>
               <!-- END DROPDOWN MENU -->
             </li>
-            
-            <li><a href="shop-item.html">Log In</a></li>
+            @guest
+            <li><a href="{{ route('login') }}">Login</a></li>
+            <li><a href="{{ route('register') }}">Register</a></li>
+            @else
+            <!--
+            <li><a href="my-account.html">Profile</a></li>
+            -->
+            <li><a href="{{ route('profile') }}">Profile</a></li>
+            <li>
+            <a class="getstarted scrollto" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt"></i>Logout
+           </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>
+          </li>
+            @endguest
+            <li><a href="shop-item.html">About Us</a></li>
+            <li><a href="shop-item.html">Contact</a></li>
            
       
             <!-- BEGIN TOP SEARCH -->
@@ -234,8 +233,7 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
             <address class="margin-bottom-40">
             {{$seting->address}}<br>
             Phone: {{$seting->phone}}<br>
-        
-              Email: <a href="{{$seting->email}}">{{$seting->email}}</a><br>
+            Email: <a href="{{$seting->email}}">{{$seting->email}}</a><br>
             </address>
           </div>
           <!-- END BOTTOM CONTACTS -->
