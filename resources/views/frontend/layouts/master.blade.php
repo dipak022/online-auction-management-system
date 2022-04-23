@@ -42,7 +42,6 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
   <meta property="og:type" content="website">
   <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
   <meta property="og:url" content="-CUSTOMER VALUE-">
-
   <link rel="shortcut icon" href="favicon.html">
 
   <!-- Fonts START -->
@@ -131,7 +130,7 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
     <!-- BEGIN HEADER -->
     <div class="header">
       <div class="container">
-        <a class="site-logo" href="{{ url('/') }}"><img src="{{asset($seting->image)}}" alt="Biding" style="height: 80px;width: 150px;"></a>
+        <a class="site-logo" href="{{ url('/') }}"><img src="{{asset($seting->image)}}" alt="Biding" style="height: 35px;width: 150px;"></a>
         <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
         <!-- BEGIN NAVIGATION -->
         <div class="header-navigation">
@@ -144,7 +143,7 @@ $seting=App\Models\Seting::orderBy('id','DESC')->first();
               <!-- BEGIN DROPDOWN MENU -->
               <ul class="dropdown-menu">
                 @foreach($categorys as $cat)   
-                   <li><a href="shop-product-list.html"><span style="color: black;">{{ $cat->categoty_name}}</span></a></li>
+                   <li><a href="{{route('category_wise_show',$cat->id)}}">{{ $cat->category_name}}</a></li>
                 @endforeach
               </ul>
               <!-- END DROPDOWN MENU -->

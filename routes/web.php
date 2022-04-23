@@ -19,6 +19,7 @@ Route::middleware(['middleware'=>'PreventBackHistory'])->group(function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('/category_wise_show/{id}', [App\Http\Controllers\IndexController::class, 'CategoryWiseShow'])->name('category_wise_show');
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth','PreventBackHistory']], function(){
     Route::get('dashboard',[App\Http\Controllers\User\UserController::class,'index'])->name('user.dashboard');
@@ -28,7 +29,10 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth','PreventBackHisto
     Route::get('delete_problem/{id}',[App\Http\Controllers\User\UserController::class,'delete'])->name('user.problem.delete');
     Route::get('/auction_details/{id}', [App\Http\Controllers\IndexController::class, 'AuctionDetails'])->name('auction.details');
     Route::post('/biding_update/{id}', [App\Http\Controllers\IndexController::class, 'BidingUpdate'])->name('biding.update');
-    Route::post('/profile', [App\Http\Controllers\IndexController::class, 'Profile'])->name('profile');
+    Route::get('/profile_bid', [App\Http\Controllers\IndexController::class, 'Profile'])->name('profile');
+    Route::post('/account_update/{id}', [App\Http\Controllers\IndexController::class, 'AccountUpdate'])->name('account.update');
+    Route::get('/user_bid_delete/{id}', [App\Http\Controllers\IndexController::class, 'UserBidDelete'])->name('user.bid.delete');
+    
     
 
 });

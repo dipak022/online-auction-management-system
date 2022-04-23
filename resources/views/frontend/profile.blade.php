@@ -4,33 +4,92 @@ Profile Page
 @endsection
 @section('content')
  <!-- Content Wrapper. Contains page content -->
+ <!-- branch add model start --> 
+ @php
+  $userfind=DB::table('users')->where('id',auth()->user()->id)->first();
+ @endphp
+ <div class="modal fade" id="account_{{$userfind->id}}">
+        <div class="modal-dialog">
+          <div class="modal-content bg-secondary">
+            <div class="modal-header">
+              <h4 class="modal-title">Update Account </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form class="add-contact-form" method="post" action="{{ route('account.update',$userfind->id) }}" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <label>Name :</label>
+                        <input type="text" class="form-control" placeholder="name" name="name" value="{{$userfind->name}}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email :</label>
+                        <input class="form-control" placeholder="Email" name="email" value="{{$userfind->email}}" readonly></input>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone :</label>
+                        <input class="form-control" placeholder="phone" name="phone" value="{{$userfind->phone}}" ></input>
+                    </div>
+
+                    <div class="form-group">
+                      <label>User status :</label>
+                      <select class="form-control show-tick" name="active">
+                            <option selected disable>--Select Status--</option>
+                            <option value="1" {{$userfind->active == 1 ? "selected" : "" }}>Active</option>
+                            <option value="0" {{$userfind->active == 0 ? "selected" : "" }}>Inactive</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-outline-light">Update </button>
+                </div>
+            </form>  
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <!-- branch add model end --> 
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+        <div class="col-md-2"></div>
+          <div class="col-sm-8">
             <h1>Bid All Data </h1>
+            <div class="pull-right" style="text-align:right;">
+                    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#account_{{$userfind->id}}" style="color:white;background:black;">
+                      Account Update
+                    </button>
+                </div>
+</br>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-              <li class="breadcrumb-item active">Bid</li>
-            </ol>
-          </div>
+          
         </div>
       </div><!-- /.container-fluid -->
+      
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
-           
+        <div class="col-md-2"></div>
+          <div class="col-md-8">
+          
 
             <div class="card">
               <div class="card-header">
+               
+                
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -47,12 +106,11 @@ Profile Page
                     <th>Bid Amount</th>
                     <th>Bid End Date</th>
                     <th>Status</th> 
-                    <th>Status Change</th> 
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($allbiding as $item)
+                  @foreach($allbids as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td><img src="{{asset($item->image)}}" style="height: 100px;width: 100px;"/></td>
@@ -71,169 +129,14 @@ Profile Page
                           
                            @endif
                         </td>
+                        
                         <td>
-                            <div class="dropdown show">
-                                <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Status
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    @if($item->status!=2)
-                                    <a class="dropdown-item" href="{{route('bid.delevered',$item->id)}}">delevered</a>
-                                    @else
-                                    
-                                    <a class="dropdown-item" href="#">Deactive Done</a>
-                                    @endif
-                                   
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                        <a type="button"  href="{{ route('bid.delete',$item->id) }}" class="btn-sm btn-danger" title="Delete">Delete</a>
+                        <a type="button"  href="{{ route('user.bid.delete',$item->id) }}" class="btn-sm btn-danger" title="Delete">Delete</a>
                             
                             </form>
                         </td>
                     </tr>
-                        <!-- branch Edit model start --> 
-                        <div class="modal fade" id="edit_{{$item->id}}">
-                                <div class="modal-dialog">
-                                <div class="modal-content bg-info">
-                                    <div class="modal-header">
-                                    <h4 class="modal-title">Tachnician  Assign </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    @php 
-                                    $technicians=DB::table('problems')
-                                      ->join('users','problems.service_id','users.type')
-                                      ->where('users.role',4)
-                                      ->select('problems.*','users.name','users.id')
-                                      ->get();
-                                    @endphp  
-                                    <form class="add-contact-form" method="post" action="{{ route('problem.update',$item->id) }}" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('patch')
-                                        <!-- <input type="hidden" name="id" value="{{$item->id}}" > -->
-                                        <div class="modal-body">
-                                        
-                                        
-                                         
-
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-outline-light">Tachnician  Assign</button>
-                                        </div>
-                                    </form>  
-                                </div>
-                                <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-                            <!-- /.modal -->
-                            <!-- branch Edit model end -->   
-
-
-
-                           <!-- branch Show model start --> 
-                        <div class="modal fade" id="show_{{$item->id}}">
-                            @php
-                                $problem = \App\Models\Product::where('id',$item->id)->first();
-                            @endphp
-                            <div class="modal-dialog">
-                            <div class="modal-content bg-info">
-                                <div class="modal-header">
-                                <h4 class="modal-title">View Send Problem </h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <form class="add-contact-form" method="post" action="#" enctype="multipart/form-data">
-                                   
-                                    <!-- <input type="hidden" name="id" value="{{$item->id}}" > -->
-                                    <div class="modal-body">
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>Name :</strong>
-                                            <p>{{$problem->name}}</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <strong>Email :</strong>
-                                            <p>{{$problem->email}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>Phone :</strong>
-                                            <p>{{$problem->phone}}</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <strong>Problem Title :</strong>
-                                            <p>{{$problem->problem_title}}</p>
-                                        </div>
-                                    </div>
-
-                                   
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <strong>Problem Description :</strong>
-                                            <p>{{$problem->problem_details}}</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <strong>Room Number :</strong>
-                                            <p>{{$problem->room_number}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                      
-                                        <div class="col-md-6">
-                                            <strong>Floor Number :</strong>
-                                            <p>{{$problem->floor_number}}</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <strong>Equipment Number Title :</strong>
-                                            <p>{{$problem->equipment_number}}</p>
-                                        </div>
-                                    </div>
-
-                                   
-
-
-                                  
-                                   
-                                    
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <strong>Status  :</strong>
-                                            @if($problem->status==1)
-                                            <span class="badge badge-success"> Request </span>
-                                            @elseif($problem->status==2)
-                                            <span class="badge badge-success"> Send Tachnician </span>
-                                            @elseif($problem->status==3)
-                                            <span class="badge badge-success"> Problen Solved </span>
-                                            @elseif($problem->status==4)
-                                            <span class="badge badge-success"> Send Officer For Equipment </span>
-                                            @elseif($problem->status==5)
-                                            <span class="badge badge-success"> Equipment Buying Done</span>
-                                            @endif
-                                          </div>
-                                    </div>
-                                        
-                    
-                                    <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light pull-right" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>  
-                          </div>
-                          <!-- /.modal-content -->
-                          </div>
-                          <!-- /.modal-dialog -->
-                      </div>
-                      <!-- /.modal -->
-                      <!-- Department Show  model end -->    
+                          
                   @endforeach   
                   </tbody>
                 
@@ -243,6 +146,7 @@ Profile Page
             </div>
             <!-- /.card -->
           </div>
+          <div class="col-md-2"></div>
           <!-- /.col -->
         </div>
         <!-- /.row -->

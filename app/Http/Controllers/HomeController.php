@@ -28,7 +28,8 @@ class HomeController extends Controller
     public function home()
     {
         $date = Carbon::now();
-        $categorys = Category::where('active',1)->get();
+        //$categorys = Category::where('active',1)->get();
+        $categorys =DB::table('categories')->where('active',1)->get();
         $seting=Seting::orderBy('id','DESC')->first();
         $banners=DB::table('banners')->where('active',1)->orderBy('id','DESC')->first();
         $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get();   
@@ -42,10 +43,11 @@ class HomeController extends Controller
     {
         $date = Carbon::now();
         $seting=Seting::orderBy('id','DESC')->first();
+        $categorys =DB::table('categories')->where('active',1)->get();
         $banners=DB::table('banners')->where('active',1)->orderBy('id','DESC')->first();
         $allproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->orderBy('id','DESC')->get();   
         $newproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('new',1)->orderBy('id','DESC')->get(); 
         $featuredproducts= Product::where('bidding_end_date', '>=', $date)->where('active',1)->where('featured',1)->orderBy('id','DESC')->get(); 
-        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts'));
+        return view('frontend.index',compact('seting','banners','allproducts','newproducts','featuredproducts','categorys'));
     }
 }

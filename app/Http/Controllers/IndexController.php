@@ -9,13 +9,14 @@ use Illuminate\Support\Str;
 use DB;
 use DateTime;
 use Auth;
+use App\Models\User;
 class IndexController extends Controller
 {
     public function AuctionDetails($id)
     {
-        //$categorys=Category::where('active',1)->get(); 
+        $categorys =DB::table('categories')->where('active',1)->get();
         $products=DB::table('products')->where('id',$id)->where('active',1)->first();            
-        return view('frontend.details',compact('products'));
+        return view('frontend.details',compact('products','categorys'));
     }
 
     public function BidingUpdate(Request $request, $id){
@@ -54,13 +55,72 @@ class IndexController extends Controller
     }
 
     public function Profile(){
-        $allbiding=DB::table('products')
+        
+        $categorys =DB::table('categories')->where('active',1)->get();
+        $allbids=DB::table('products')
         ->join('users','products.user_id','users.id')
         ->where('products.active',1)
         ->where('products.status',1)
         ->orWhere('products.status',2)
         ->select('products.*','users.name','users.email')
-        ->get(); 
-        return view('frontend.profile',compact('allbiding')); 
+        ->get();  
+        //dd($allbids);
+        return view('frontend.profile',compact('allbids','categorys')); 
+    }
+
+    public function CategoryWiseShow($id){
+        $categorys =DB::table('categories')->where('active',1)->get();
+        $categoryproducts= Product::where('category_id',$id)
+                                    ->where('active',1)
+                                    ->get();
+        return view('frontend.product',compact('categoryproducts','categorys'));
+
+    }
+
+    public function AccountUpdate(Request $request, $id){
+        
+        $user = User::find($id);
+        if($user){
+            $user->name = $request->name;
+            $user->active = $request->active;
+            $user->phone = $request->phone;
+            $user->role = 3;
+            $done = $user->save();
+            if ($done) {
+                $notification = array(
+                    'message' => 'Account Update Successfully.',
+                    'alert-type' => 'success'
+                );
+                return redirect()->back()->with($notification);
+            }else{
+                $notification = array(
+                    'message' => 'Account Update Unuccessfully',    
+                    'alert-type' => 'danger'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }
+
+    }
+
+    public function UserBidDelete($id){
+        $product = Product::find($id);
+        $product->status = '';
+        $product->user_id = '';
+        $product->bidding_amount = 0;
+        $done = $product->save();
+        if ($done) {
+            $notification = array(
+                'message' => 'Bid Delete Successfully.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'message' => 'Bid Delete Unuccessfully',
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }
