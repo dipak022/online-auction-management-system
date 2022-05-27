@@ -47,6 +47,7 @@ User Manage
                     <th>S.N.</th>
                     <th>User name</th>
                     <th>User Email</th>
+                    <th>Vendor</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -57,6 +58,9 @@ User Manage
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
+                        <td>
+                            <input type="checkbox" name="vendor" value="{{$item->id}}" data-toggle="switchbutton" {{$item->multi_vendor == 1 ? 'checked' : ''}}  data-onlabel="Active" data-offlabel="Inactive" data-onstyle="success" data-size="sm" data-offstyle="danger">
+                        </td>
                         <td>
                             <input type="checkbox" name="toogle" value="{{$item->id}}" data-toggle="switchbutton" {{$item->active == 1 ? 'checked' : ''}}  data-onlabel="Active" data-offlabel="Inactive" data-onstyle="success" data-size="sm" data-offstyle="danger">
                         </td>
@@ -331,6 +335,27 @@ $('input[name=toogle]').change(function(){
    //alert(id);
    $.ajax({
        url:"{{ route('user_account.status')}}",
+       type:"POST",
+       data:{
+           _token:'{{csrf_token()}}',
+           mode:mode,
+           id:id,
+       },
+       success:function(response){
+           console.log(response.status);
+
+       }
+   })
+});
+</script>
+
+<script>
+$('input[name=vendor]').change(function(){
+   var mode = $(this).prop('checked');
+   var id = $(this).val();
+   //alert(id);
+   $.ajax({
+       url:"{{ route('user_vendor.status')}}",
        type:"POST",
        data:{
            _token:'{{csrf_token()}}',

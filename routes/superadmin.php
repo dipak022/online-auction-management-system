@@ -24,7 +24,7 @@ Route::group(['prefix'=>'superadmin', 'middleware'=>['isSuperadmin','auth','Prev
     
     Route::get('/allbid', [App\Http\Controllers\BidingController::class, 'allbid'])->name('allbid');
 
-    Route::post('/delevered/{id}', [App\Http\Controllers\BidingController::class, 'Delevered'])->name('bid.delevered');
+    Route::get('/delevered/{id}', [App\Http\Controllers\BidingController::class, 'Delevered'])->name('bid.delevered');
 
     Route::get('/delete_bid/{id}', [App\Http\Controllers\BidingController::class, 'DeleteBid'])->name('bid.delete');
     
@@ -37,6 +37,7 @@ Route::group(['prefix'=>'superadmin', 'middleware'=>['isSuperadmin','auth','Prev
      // manage question route here 
      Route::resource('/user_account', App\Http\Controllers\Superadmin\UserAccountController::class);
      Route::post('/user_account_status', [App\Http\Controllers\Superadmin\UserAccountController::class, 'UserAcountStatus'])->name('user_account.status');
+     Route::post('/user_vendor_status', [App\Http\Controllers\Superadmin\UserAccountController::class, 'UserVendorStatus'])->name('user_vendor.status');
 
      Route::resource('/problem', App\Http\Controllers\Superadmin\ProblemController::class);
 

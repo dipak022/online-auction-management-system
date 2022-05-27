@@ -27,9 +27,16 @@ class UserAccountController extends Controller
         }else{
             $status = DB::table('users')->where('id',$request->id)->update(['active'=>0]);
         }
-       
-        
     }
+    public function UserVendorStatus(Request $request){
+        //dd($request->all());
+        if($request->mode == 'true'){
+            $status = DB::table('users')->where('id',$request->id)->update(['multi_vendor'=>1]);
+        }else{
+            $status = DB::table('users')->where('id',$request->id)->update(['multi_vendor'=>0]);
+        }
+    }
+    
 
     /**
      * Show the form for creating a new resource.

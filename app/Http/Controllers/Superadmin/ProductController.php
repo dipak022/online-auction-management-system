@@ -17,9 +17,9 @@ class ProductController extends Controller
     {
         $categorys=Category::where('active',1)->get(); 
         $products=DB::table('products')
-            ->join('categories','products.category_id','categories.id')
-            ->select('products.*','categories.category_name')
-            ->get();
+        ->join('categories','products.category_id','categories.id')
+        ->select('products.*','categories.category_name')
+        ->where('auth_id',auth()->user()->id)->get();
         return view('backend.superadmin.product.manage',compact('categorys','products'));
     }
 
@@ -84,6 +84,7 @@ class ProductController extends Controller
         $product->new = $request->new;
         $product->featured = $request->featured;
         $product->active = $request->active;
+        $product->auth_id = auth()->user()->id;
         $done = $product->save();
 
         if ($done) {

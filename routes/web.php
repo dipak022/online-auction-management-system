@@ -32,7 +32,14 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth','PreventBackHisto
     Route::get('/profile_bid', [App\Http\Controllers\IndexController::class, 'Profile'])->name('profile');
     Route::post('/account_update/{id}', [App\Http\Controllers\IndexController::class, 'AccountUpdate'])->name('account.update');
     Route::get('/user_bid_delete/{id}', [App\Http\Controllers\IndexController::class, 'UserBidDelete'])->name('user.bid.delete');
-    
+
+    //product
+
+    // manage product route here 
+    Route::resource('/user-product', App\Http\Controllers\UserProductController::class);
+    Route::post('/user_product_status', [App\Http\Controllers\UserProductController::class, 'ProductStatus'])->name('user.product.status');
+    Route::post('/user_new_status', [App\Http\Controllers\UserProductController::class, 'NewStatus'])->name('user.new.status');
+    Route::post('/user_featured_status', [App\Http\Controllers\UserProductController::class, 'FeaturedStatus'])->name('user.featured.status');
     
 
 });

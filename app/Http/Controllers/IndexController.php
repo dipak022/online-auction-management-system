@@ -65,7 +65,8 @@ class IndexController extends Controller
         ->select('products.*','users.name','users.email')
         ->get();  
         //dd($allbids);
-        return view('frontend.profile',compact('allbids','categorys')); 
+        return view('user.index',compact('allbids','categorys')); 
+      // return view('user.index');
     }
 
     public function CategoryWiseShow($id){

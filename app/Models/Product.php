@@ -19,6 +19,7 @@ class Product extends Model
         'image',
         'new',
         'featured',
+        'auth_id',
         'active',
     ];
 }
